@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public static Player Instance{get; private set;}
+
     [SerializeField]private float moveSpeed;
     [SerializeField]private GameInput gameInput;
     [SerializeField]private LayerMask countersLayerMask;
@@ -18,6 +21,13 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private Vector3 lastInteractDir;
     private ClearCounter selectedCounter;
+
+    private void Awake()
+    {
+        if(Instance !=null)
+            Debug.LogError("There is more than one player instance");
+        Instance = this;
+    }
     private void Update()
     {
         HandleMovement();

@@ -204,6 +204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67c0a3f95fba1849907ccdbbf307708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearcounter: {fileID: 8596767884310764914}
+  highlightVisual: {fileID: 7044661484211987420}
+--- !u!1 &7044661484211987420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8489276541531669327, guid: 0004cb1e11ad014419b943c7da960724,
+    type: 3}
+  m_PrefabInstance: {fileID: 1444620027714707603}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3397891975721777511
 PrefabInstance:
   m_ObjectHideFlags: 0
