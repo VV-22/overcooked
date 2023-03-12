@@ -613,6 +613,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!114 &563307134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596767884310764914, guid: 2a1970e7b9e90b0429e260e7db9c705d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3397891975726608780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17d2c1cc7d544b4394143befca897a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &655419002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -862,6 +874,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8596767884310764914, guid: 2a1970e7b9e90b0429e260e7db9c705d,
+        type: 3}
+      propertyPath: testing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596767884310764914, guid: 2a1970e7b9e90b0429e260e7db9c705d,
+        type: 3}
+      propertyPath: secondClearCounter
+      value: 
+      objectReference: {fileID: 563307134}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
