@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter
 {
-    [SerializeField]private KitchenObjectSO cutKitchenObjectSO;
+    [SerializeField]private CuttingRecipeSO[] cuttingRecipeSOArray;
     public override void Interact(Player player)
     {
        if(!HasKitchenObject())
@@ -12,7 +12,11 @@ public class CuttingCounter : BaseCounter
             //counter is empty
             if(player.HasKitchenObject())
             {
-                player.GetKitchenObject().SetKitchenObjectParent(this);
+                if(HasRecipeForInput(player.GetKitchenObject().GetKitchenObjectSO()))
+                {
+                    //player carrying something that can be cut
+                    player.GetKitchenObject().SetKitchenObjectParent(this);
+                }
             }
             else
             {
@@ -33,14 +37,33 @@ public class CuttingCounter : BaseCounter
             }
         }
     }
-
+    private bool HasRecipeForInput(KitchenObjectSO inputKitchenObjectSO)
+    {
+        foreach(CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
+        {
+            if(cuttingRecipeSO.input == inputKitchenObjectSO )
+            return true;
+        }
+        return false;
+    }
     public override void InteractAlternate(Player player)
     {
-        if(HasKitchenObject())
+        if(HasKitchenObject() && HasRecipeForInput(GetKitchenObject().GetKitchenObjectSO()))
         {
-            //Kitchen object present. have to cut now
+            //Kitchen object that can be cut is present. have to cut now
+            KitchenObjectSO outputKitchenObjectSO = GetOutputForInput(GetKitchenObject().GetKitchenObjectSO());
             GetKitchenObject().DestroySelf();
-            KitchenObject.spawnKitchenObject(cutKitchenObjectSO, this);
+            KitchenObject.spawnKitchenObject(outputKitchenObjectSO, this);
         }
+    }
+
+    private KitchenObjectSO GetOutputForInput(KitchenObjectSO inputKitchenObjectSO)
+    {
+        foreach(CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
+        {
+            if(cuttingRecipeSO.input == inputKitchenObjectSO )
+            return cuttingRecipeSO.output;
+        }
+        return null;
     }
 }
