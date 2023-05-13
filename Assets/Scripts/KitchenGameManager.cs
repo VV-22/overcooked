@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KitchenGameManager : MonoBehaviour
 {
-
+    
     public static KitchenGameManager Instance { get; private set;}
 
     public event EventHandler OnStateChanged;
@@ -16,6 +16,7 @@ public class KitchenGameManager : MonoBehaviour
         GamePlaying,
         GameOver,
     }
+    private bool isGamePaused = false;
 
     private State state;
     private float waitingToStartTimer = 1f;
@@ -27,6 +28,24 @@ public class KitchenGameManager : MonoBehaviour
     {
         state = State.WaitingToStart;
         Instance = this;
+    }
+    private void Start()
+    {
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        TogglePauseGame();
+    }
+
+    private void TogglePauseGame()
+    {
+        isGamePaused  = !isGamePaused;
+        if(isGamePaused)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
     }
 
     private void Update()

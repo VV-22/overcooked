@@ -6,16 +6,25 @@ using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance {get; private set;}
     PlayerControls playerControls;
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnPauseAction;
     private void Awake()
     {
+        Instance = this;
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
 
         playerControls.Player.Interact.performed += Interact_performed;
         playerControls.Player.InteractAlternate.performed += InteractAlternate_performed;
+        playerControls.Player.Pause.performed += Pause_performed;
+    }
+
+    private void Pause_performed(InputAction.CallbackContext context)
+    {
+        OnPauseAction?.Invoke(this,EventArgs.Empty);
     }
 
     private void InteractAlternate_performed(InputAction.CallbackContext obj)
