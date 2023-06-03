@@ -80,7 +80,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         {
             //attempt only X dir
             Vector3 moveDirX = new Vector3(moveDir.x, 0f, 0f).normalized;
-            canMove = moveDir.x != 0 && !(Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerRadius,moveDirX,moveDistance));
+            canMove = (moveDir.x < -.5f || moveDir.x > .5f) && !(Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerRadius,moveDirX,moveDistance));
             if(canMove)
             {
                 //can move in X dir
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
             {
                 //attempt only Z dir
                 Vector3 moveDirZ = new Vector3(0f, 0f, moveDir.z).normalized;
-                canMove = moveDir.z != 0 && !(Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerRadius,moveDirZ,moveDistance));
+                canMove = (moveDir.z < -.5f || moveDir.z > .5f) && !(Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerRadius,moveDirZ,moveDistance));
                 if(canMove)
                 {
                     //can move in Z dir
