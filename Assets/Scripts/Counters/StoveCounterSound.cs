@@ -8,6 +8,8 @@ public class StoveCounterSound : MonoBehaviour
 
     [SerializeField] private StoveCounter stoveCounter;
     private AudioSource audioSource;
+    private float warningSoundTimer;
+    private bool playWarningSound;
     
     private void Awake()
     {
@@ -17,6 +19,14 @@ public class StoveCounterSound : MonoBehaviour
     private void Start()
     {
         stoveCounter.OnStateChanged += StoveCounter_OnstateChanged;
+        stoveCounter.OnProgressChanged += StoveCounter_OnProgressChanged;
+    }
+
+    private void StoveCounter_OnProgressChanged(object sender, IHasProgress.OnProgressChangedEventArgs e)
+    {
+        float burnShowProgressAmount = 0.4f;
+        playWarningSound = stoveCounter.isFried() && e.progressNormalized >= burnShowProgressAmount;
+
     }
 
     private void StoveCounter_OnstateChanged(object sender, StoveCounter.OnStateChangedEventArgs e)
@@ -29,6 +39,20 @@ public class StoveCounterSound : MonoBehaviour
         else
         {
             audioSource.Pause();
+        }
+    }
+
+    private void Update()
+    {
+        if(playWarningSound)
+        {
+            warningSoundTimer -= Time.deltaTime;
+            float warningSoundTimerMax = 0.2f;
+            if(warningSoundTimer <= 0f)
+            {
+                warningSoundTimer = warningSoundTimerMax;
+                SoundManager.Instance.PlayWarningSound(stoveCounter.transform.position);
+            }
         }
     }
 }
